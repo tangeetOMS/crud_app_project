@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class AddNewProductScreen extends StatefulWidget {
   const AddNewProductScreen({super.key});
-  static const name = 'Add_new_product';
+  static const String name = 'Add_new_product';
   @override
   State<AddNewProductScreen> createState() => _AddNewScreenState();
 }
@@ -164,7 +163,7 @@ class _AddNewScreenState extends State<AddNewProductScreen> {
               },
               child: Text('Submit'),
               style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 170, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 120, vertical: 5),
                   backgroundColor: Colors.redAccent),
             ),
           ),

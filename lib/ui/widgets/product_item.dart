@@ -1,18 +1,18 @@
+import 'package:crud_app_project/ui/screens/update_product_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key,required this.product});
+  const ProductItem({super.key, required this.product});
 
   final Product product;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-     /* leading: Image.network(
-          'https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-iPhone-14-Plus-2up-purple-220907_inline.jpg.large.jpg'),*/
-      title: Text(product.productName ?? ''),
+      // leading: Image.network(product.image?? '',width: 30,),
+      title: Text('Product Name:${product.productName ?? ''}'),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,7 +30,8 @@ class ProductItem extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, 'Update_product');
+              Navigator.pushNamed(context, UpdateProductScreen.name,
+                  arguments: product);
             },
             icon: Icon(Icons.edit),
           ),
@@ -39,7 +40,3 @@ class ProductItem extends StatelessWidget {
     );
   }
 }
-
-
-
-

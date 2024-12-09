@@ -26,19 +26,32 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Product List'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _getProductList();
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
       ),
-      body: Visibility(
-        visible: _getProductListInProgress == false,
-        replacement: Center(
-          child: CircularProgressIndicator(),
-        ),
-        child: ListView.builder(
-          itemCount: productList.length,
-          itemBuilder: (context, index) {
-            return ProductItem(
-              product: productList[index],
-            );
-          },
+      body: RefreshIndicator(
+        onRefresh: ()async{
+          _getProductList();
+        },
+        child: Visibility(
+          visible: _getProductListInProgress == false,
+          replacement: Center(
+            child: CircularProgressIndicator(),
+          ),
+          child: ListView.builder(
+            itemCount: productList.length,
+            itemBuilder: (context, index) {
+              return ProductItem(
+                product: productList[index],
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -49,19 +62,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
     );
   }
-Future <void> _getProductList()async{
-      _getProductListInProgress=true;
-      setState(() {});
-    Uri uri=Uri.parse('https://crud.teamrabbil.com/api/v1/ReadProduct');
-    Response response= await get(uri);
+
+  Future<void> _getProductList() async {
+    productList.clear();
+    _getProductListInProgress = true;
+    setState(() {});
+    Uri uri = Uri.parse('https://crud.teamrabbil.com/api/v1/ReadProduct');
+    Response response = await get(uri);
     print(response.statusCode);
     print(response.body);
-    if(response.statusCode==200) {
+    if (response.statusCode == 200) {
       final decodedData = jsonDecode(response.body);
       print(decodedData['status']);
-      for(Map<String,dynamic> p in decodedData['data']){
-        Product product=Product(
-          id:p['_id'],
+      for (Map<String, dynamic> p in decodedData['data']) {
+        Product product = Product(
+          id: p['_id'],
           productName: p['ProductName'],
           productCode: p['ProductCode'],
           unitPrice: p['UnitPrice'],
@@ -73,8 +88,7 @@ Future <void> _getProductList()async{
         productList.add(product);
       }
     }
-      _getProductListInProgress=false;
-      setState(() {});
-
+    _getProductListInProgress = false;
+    setState(() {});
   }
 }
