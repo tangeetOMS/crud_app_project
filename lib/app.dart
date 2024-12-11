@@ -11,6 +11,11 @@ class CrudApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.amberAccent,
+          foregroundColor: Colors.redAccent,
+          centerTitle: true,
+        ),
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
@@ -20,9 +25,9 @@ class CrudApp extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.redAccent,
-            )
-          )
-        )
+            ),
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',

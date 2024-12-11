@@ -11,7 +11,15 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        leading: Image.network(product.image ?? 'UnKnown',width: 40,),
+      leading: Image(
+        height: 100,
+        width: 70,
+        image: NetworkImage('${product.image}'),
+        errorBuilder: (context, error, stackTrace) {
+          return Image.network(
+              'https://static.thenounproject.com/png/1211233-200.png');
+        },
+      ),
       title: Text('Product Name:${product.productName ?? 'UnKnown'}'),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
