@@ -36,7 +36,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: ()async{
+        onRefresh: () async {
           _getProductList();
         },
         child: Visibility(
@@ -48,7 +48,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             itemCount: productList.length,
             itemBuilder: (context, index) {
               return ProductItem(
-                product: productList[index],
+                product: productList[index], delete: () { _deleteProductItem(productList[index].id!); },
               );
             },
           ),
@@ -90,5 +90,56 @@ class _ProductListScreenState extends State<ProductListScreen> {
     }
     _getProductListInProgress = false;
     setState(() {});
+  }
+
+  Future<void> _deleteProduct(String id) async {
+    Uri uri = Uri.parse(
+        'https://crud.teamrabbil.com/api/v1/DeleteProduct/${id}');
+    Response response = await get(uri);
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200) {
+      _getProductList();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Delete Confirm'),
+        ),
+      );
+    }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Delete Processing'),
+        ),
+      );
+      setState(() {});
+    }
+  }
+
+  void _deleteProductItem(String id) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Delete Product !'),
+          content: Text('Are you want to sure ?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _deleteProduct(id);
+                Navigator.pop(context);
+              },
+              child: Text('Confirm'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            )
+          ],
+        );
+      },
+    );
   }
 }

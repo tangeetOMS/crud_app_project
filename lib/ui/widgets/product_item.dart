@@ -4,28 +4,28 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key, required this.product});
-
+  const ProductItem({super.key, required this.product, required this.delete});
+  final VoidCallback delete;
   final Product product;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      // leading: Image.network(product.image?? '',width: 30,),
-      title: Text('Product Name:${product.productName ?? ''}'),
+        leading: Image.network(product.image ?? 'UnKnown',width: 40,),
+      title: Text('Product Name:${product.productName ?? 'UnKnown'}'),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Product Code:${product.productCode ?? ''}'),
-          Text('Quantity:${product.quantity ?? ''}'),
-          Text('Price: ${product.unitPrice ?? ''}'),
-          Text('Total price:${product.totalPrice ?? ''}'),
+          Text('Product Code:${product.productCode ?? 'UnKnown'}'),
+          Text('Quantity:${product.quantity ?? 'UnKnown'}'),
+          Text('Price: ${product.unitPrice ?? 'UnKnown'}'),
+          Text('Total price:${product.totalPrice ?? 'UnKnown'}'),
         ],
       ),
       trailing: Wrap(
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: delete,
             icon: Icon(Icons.delete),
           ),
           IconButton(

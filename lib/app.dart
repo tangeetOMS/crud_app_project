@@ -10,6 +10,20 @@ class CrudApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.green,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.redAccent,
+            )
+          )
+        )
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       onGenerateRoute: (RouteSettings settings) {

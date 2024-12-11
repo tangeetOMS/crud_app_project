@@ -163,20 +163,21 @@ class _AddNewScreenState extends State<UpdateProductScreen> {
             height: 35,
           ),
           Visibility(
-            visible: _updateProductInProgress==false,
+            visible: _updateProductInProgress == false,
             replacement: const Center(
               child: CircularProgressIndicator(),
             ),
             child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _updateProduct();
-                  }
-                },
-                child: Text('Update'),
-                style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 90, vertical: 5),
-                    backgroundColor: Colors.redAccent),),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _updateProduct();
+                }
+              },
+              child: Text('Update'),
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 90, vertical: 5),
+                  backgroundColor: Colors.redAccent),
+            ),
           ),
         ],
       ),
@@ -187,9 +188,9 @@ class _AddNewScreenState extends State<UpdateProductScreen> {
     _updateProductInProgress = true;
     setState(() {});
     Uri uri = Uri.parse(
-        'https://crud.teamrabbil.com/api/v1/UpdateProduct/ ${widget.product.id}',
+      'https://crud.teamrabbil.com/api/v1/UpdateProduct/${widget.product.id}',
     );
-    Map<String,dynamic> requestBody={
+    Map<String, dynamic> requestBody = {
       "Img": _imageTEController.text.trim(),
       "ProductCode": _codeTEController.text.trim(),
       "ProductName": _nameTEController.text.trim(),
@@ -200,13 +201,13 @@ class _AddNewScreenState extends State<UpdateProductScreen> {
     Response response = await post(
       uri,
       headers: {
-        'Content-type':'application/json',
+        'Content-type': 'application/json',
       },
       body: jsonEncode(requestBody),
     );
     print(response.statusCode);
     print(response.body);
-    _updateProductInProgress=false;
+    _updateProductInProgress = false;
     setState(() {});
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -214,8 +215,7 @@ class _AddNewScreenState extends State<UpdateProductScreen> {
           content: Text('Product has been updated!'),
         ),
       );
-    }
-    else{
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Product update failed! Try again'),
