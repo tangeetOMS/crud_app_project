@@ -158,7 +158,7 @@ class _AddNewScreenState extends State<AddNewProductScreen> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  _addNewProduct();
+                  _addProduct();
                 }
               },
               child: Text('Submit'),
@@ -172,42 +172,33 @@ class _AddNewScreenState extends State<AddNewProductScreen> {
     );
   }
 
-  Future<void> _addNewProduct() async {
-    _addNewProductInProgress = true;
-    setState(() {});
-    Uri uri = Uri.parse('https://crud.teamrabbil.com/api/v1/CreateProduct');
-    Map<String, dynamic> requestBody = {
-      "Img": _imageTEController.text.trim(),
-      "ProductCode": _codeTEController.text.trim(),
+  Future<void> _addProduct() async {
+    _addNewProductInProgress=true;
+    setState(() {
+
+    });
+    Uri url=Uri.parse("https://crud.teamrabbil.com/api/v1/CreateProduct");
+    Map<String, dynamic> responseBody={
       "ProductName": _nameTEController.text.trim(),
+      "ProductCode": _codeTEController.text.trim(),
+      "Img": _imageTEController.text.trim(),
+      "UnitPrice": _priceTEController.text.trim(),
       "Qty": _quantityTEController.text.trim(),
       "TotalPrice": _totalPriceTEController.text.trim(),
-      "UnitPrice": _priceTEController.text.trim(),
     };
     Response response = await post(
-      uri,
-      headers: {'Content_type': 'application/json'},
-      body: jsonEncode(requestBody),
+      url,
+      headers:{'Content-type': 'application/json'},
+      body: jsonEncode(responseBody),
     );
-    _addNewProductInProgress=false;
-    setState(() {});
-    print(response.statusCode);
-    print(response.body);
-    if (response.statusCode == 200) {
+    if(response.statusCode==200){
       _clearTextFields();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('New product aded!'),
-        ),
-      );
+      setState(() {});
     }
-    else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('New product add failed! Try again .'),
-        ),
-      );
-    }
+    _addNewProductInProgress=false;
+    setState(() {
+
+    });
   }
 
   void _clearTextFields() {
@@ -229,3 +220,4 @@ class _AddNewScreenState extends State<AddNewProductScreen> {
     super.dispose();
   }
 }
+

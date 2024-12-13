@@ -11,6 +11,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      // leading: Image.network(product.image ?? '',width: 40,),
       leading: Image(
         height: 100,
         width: 70,
