@@ -28,6 +28,9 @@ class CrudApp extends StatelessWidget {
             ),
           ),
         ),
+       buttonTheme: ButtonThemeData(
+         buttonColor: Colors.green,
+       )
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
