@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key, required this.product,required this.delete});
+  const ProductItem({super.key, required this.product, required this.delete});
   final VoidCallback delete;
   final Product product;
 
@@ -35,14 +35,20 @@ class ProductItem extends StatelessWidget {
         children: [
           IconButton(
             onPressed: delete,
-            icon: Icon(Icons.delete),
+            icon: Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
           ),
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, UpdateProductScreen.name,
                   arguments: product);
             },
-            icon: Icon(Icons.edit),
+            icon: Icon(
+              Icons.edit,
+              color: Colors.green,
+            ),
           ),
         ],
       ),
