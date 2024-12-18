@@ -48,7 +48,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
             itemCount: productList.length,
             itemBuilder: (context, index) {
               return ProductItem(
-                product: productList[index], delete: () { _deleteProductItem(productList[index].id!); },
+                product: productList[index],
+               delete: (){
+                  _deleteProductItem(productList[index].id!);
+               },
               );
             },
           ),
@@ -93,8 +96,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   Future<void> _deleteProduct(String id) async {
-    Uri uri = Uri.parse(
-        'https://crud.teamrabbil.com/api/v1/DeleteProduct/${id}');
+    Uri uri =
+        Uri.parse('https://crud.teamrabbil.com/api/v1/DeleteProduct/${id}');
     Response response = await get(uri);
     print(response.statusCode);
     print(response.body);
@@ -105,8 +108,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           content: Text('Delete Confirm'),
         ),
       );
-    }
-    else {
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Delete Processing'),

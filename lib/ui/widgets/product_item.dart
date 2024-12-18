@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key, required this.product, required this.delete});
+  const ProductItem({super.key, required this.product,required this.delete});
   final VoidCallback delete;
   final Product product;
 

@@ -40,9 +40,10 @@ class CrudApp extends StatelessWidget {
           widget = const ProductListScreen();
         } else if (settings.name == AddNewProductScreen.name) {
           widget = const AddNewProductScreen();
-        } else if (settings.name == UpdateProductScreen.name) {
-          final Product product = settings.arguments as Product;
-          widget = UpdateProductScreen(product: product);
+        }
+        else if(settings.name==UpdateProductScreen.name){
+          final Product product =settings.arguments as Product;
+          widget=UpdateProductScreen(product: product);
         }
         return MaterialPageRoute(
           builder: (context) => widget,
